@@ -1,5 +1,5 @@
 # Copyright (c) 2020 Kevin McGuinness <kevin.mcguinness@gmail.com>
-import fitz
+import pymupdf
 import io
 
 from tqdm import trange
@@ -15,7 +15,7 @@ def convert_pdf2pptx(
         pdf_file, output_file, resolution, start_page, page_count,
         quiet=False):
 
-    doc = fitz.open(pdf_file)
+    doc = pymupdf.open(pdf_file)
     if not quiet:
         print(pdf_file, 'contains', doc.page_count, 'slides')
 
@@ -24,7 +24,7 @@ def convert_pdf2pptx(
 
     # transformation matrix: slide to pixmap
     zoom = resolution / 72
-    matrix = fitz.Matrix(zoom, zoom, 0)
+    matrix = pymupdf.Matrix(zoom, zoom, 0)
 
     # create pptx presentation
     prs = Presentation()
